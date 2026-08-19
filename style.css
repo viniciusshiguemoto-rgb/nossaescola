@@ -1,0 +1,132 @@
+.navbar {
+  background-color: rgb(28, 158, 233);
+  overflow: hidden;
+}
+
+.navbar a {
+  float: left;
+  color: white;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.navbar a:hover {
+  background-color:#76abe0dc;
+}
+
+*{
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+body{
+font-family: "Poppins", sans-serif;
+}
+header{
+background-color: #75abe0dc;
+color: white;
+width: 100%;
+padding: 20px;
+}
+.cabecalho-itens{
+max-width: 1980px;
+margin: 0 auto;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.cabecalho-imagem{
+width: 10%;
+display: flex;
+justify-content: flex-start;
+align-items: center;
+}
+.titulo_site{
+padding: 50px;
+text-align: center;
+width: 50%;
+font: 30px;
+}
+.sociais{
+display: flex;
+justify-content: flex-end;
+width: 25%;
+padding-right: 30px;
+}
+.banner1{
+display: flex;
+justify-content: center;
+}
+.estudante_titulo{
+padding: 50px;
+text-align: center;
+
+}
+.estudante-nome{
+text-align: center;
+}
+.estudante-imagem {
+    width: 200px;
+    height: 250px;
+    object-fit: cover;
+}
+.estudante-icone{
+width: 38px;
+padding: 4px 8px;
+}
+.estudante{
+background-image: background-color(#faae43);
+padding: 24px 0;
+}
+
+.estudante.div{
+text-align: center;
+padding: 24px 0;
+}
+.estudantes_todos{
+display: flex;
+justify-content: space-around;
+}
+.escola{
+background-image: linear-gradient(#40A2E3,#7FC2EF);
+color: white;
+display: flex;
+justify-content:center;
+padding: 24px 0;
+text-align:center;
+display:block;
+}
+.escola-titulo{
+padding: 50px;
+text-align: center;
+}
+.logo_rodape{
+height: 80px;
+padding: 12px 0;
+
+}
+
+.link{
+color: #ffffff;
+text-decoration: none;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.titulo-video {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+  font-size: 50px;
+  font-weight: bold;
+  color: #333333;
+  text-align: center;
+  margin-bottom: 15px;
+  padding: 20px 0;    
+}
+
+.container-video {
+  text-align: center
+}
