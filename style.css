@@ -130,3 +130,13 @@ text-decoration: none;
 .container-video {
   text-align: center
 }
+
+#game-container {
+      width: 800px;
+      height: 500px;
+      position: relative;
+      margin: 20px auto;
+      border: 2px solid #333;
+      overflow: hidden;
+      background-color: #000;
+    }
