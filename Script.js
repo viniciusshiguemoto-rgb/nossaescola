@@ -218,7 +218,7 @@
     const euler = new THREE.Euler(0, 0, 0, 'YXZ');
     euler.x = pitch;
     euler.y = yaw;
-    camera.quaternion.setFromNonZeroRotation(euler);
+    camera.quaternion.setFromEuler(euler);
   });
 
   // Teclado
