@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+    <meta name="theme-color" content="#05070c" />
+    <meta name="description" content="Foge da Torcida! — você é o camisa 10 tricolor fugindo dos colorados. Dê carrinhos, colete camisas e bata seu recorde." />
+    <title>Foge da Torcida! — Sobreviva à geral colorada</title>
+    <link rel="stylesheet" href="./jogos.css" />
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="game"></canvas>
+      <div class="vignette"></div>
+
+      <!-- ================= HUD ================= -->
+      <div id="hud" class="hud hidden">
+        <div class="hud-row">
+          <div class="hud-left anim-up">
+            <div id="score" class="score">0</div>
+            <div class="row">
+              <span class="chip chip-rose">Recorde <b id="best">0</b></span>
+              <span id="time" class="chip">0:00</span>
+            </div>
+          </div>
+
+          <div class="hud-mid">
+            <div id="combo" class="combo hidden"><b id="comboVal">x1.0</b><small>combo</small></div>
+            <div id="lock" class="pill pill-amber hidden">🟨 sem carrinho</div>
+            <div id="fire" class="pill pill-rose hidden">🔥 embou</div>
+          </div>
+
+          <div class="hud-right">
+            <div>
+              <div class="hearts">
+                <span class="heart" id="h0">♥</span><span class="heart" id="h1">♥</span><span class="heart" id="h2">♥</span>
+              </div>
+              <div class="row right">
+                <span id="wave" class="chip chip-sky">Onda 1</span>
+                <span id="boost" class="chip chip-amber hidden">🧉 0.0s</span>
+              </div>
+            </div>
+            <div class="btns">
+              <button id="btnPause" class="icon-btn" aria-label="Pausar">❚❚</button>
+              <button id="btnMute" class="icon-btn" aria-label="Som">🔊</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="dashHint" class="dash-hint hidden">
+          <span class="lbl">Carrinho</span>
+          <span class="meter"><i id="dashBar"></i></span>
+          <span class="key">ESPAÇO</span>
+        </div>
+      </div>
+
+      <button id="btnDash" class="dash-btn hidden" aria-label="Carrinho">
+        <span id="dashRing"></span><b id="dashLbl">Carrinho</b>
+      </button>
+
+      <!-- ================= INÍCIO ================= -->
+      <section id="scStart" class="overlay">
+        <div class="panel anim-pop">
+          <div class="hazard w-40"></div>
+          <h1 class="title stroke">FOGE DA<em>TORCIDA!</em></h1>
+          <p class="lead">
+            Você é o camisa <b class="blue">10 do Grêmio</b> cercado pelos jogadores
+            <b class="red">colorados</b>. Desvie, dê carrinho, colete camisas e sobreviva —
+            mas <b class="amber">respeite o juiz</b>.
+          </p>
+
+          <div class="stack">
+            <button id="btnStart" class="btn btn-primary big anim-glow">⚽ Entrar em campo</button>
+            <p class="hint" id="startHint">ou aperte ENTER</p>
+          </div>
+
+          <div class="help">
+            <div class="help-row">
+              <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd>
+              <span class="muted">ou setas para correr</span>
+            </div>
+            <div class="help-row"><kbd>ESPAÇO</kbd><span class="muted">carrinho — derruba quem estiver na frente</span></div>
+            <div class="help-row">
+              <kbd>P</kbd><span class="muted">pausa</span><kbd>M</kbd><span class="muted">som</span>
+            </div>
+            <div class="legend">
+              <span class="red">👕 Camisa +50</span>
+              <span class="amber">🧉 Chimarrão = turbo</span>
+              <span style="color:#86efac">🥟 Pastel = +1 vida</span>
+              <span style="color:#fde68a">📣 Grito = bomba</span>
+            </div>
+            <div class="ref-warn">
+              <b>⚠️ Cuidado com o juiz</b><br />
+              Encostar nele é <b>cartão amarelo</b> (-120 e sem carrinho). Dar carrinho nele é
+              <b style="color:#fca5a5">vermelho direto</b>. Em compensação, ele expulsa colorado e te dá pontos.
+            </div>
+          </div>
+
+          <div id="tableStart" class="table"></div>
+        </div>
+      </section>
+
+      <!-- ================= PAUSA ================= -->
+      <section id="scPause" class="overlay overlay-tight hidden">
+        <div class="panel narrow anim-pop">
+          <div class="hazard w-24"></div>
+          <h2 class="h2 stroke">Bola parada</h2>
+          <div class="stats3">
+            <div class="stat rose"><b id="pScore">0</b><span>Pontos</span></div>
+            <div class="stat"><b id="pTime">0:00</b><span>Tempo</span></div>
+            <div class="stat sky"><b id="pWave">1</b><span>Onda</span></div>
+          </div>
+          <div class="stack">
+            <button id="btnResume" class="btn btn-primary">▶ Continuar</button>
+            <div class="btn-row">
+              <button id="btnRestartP" class="btn btn-ghost half">↻ Recomeçar</button>
+              <button id="btnMenuP" class="btn btn-ghost half">⌂ Menu</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= FIM DE JOGO ================= -->
+      <section id="scOver" class="overlay overlay-red hidden">
+        <div class="panel red-glow anim-pop">
+          <div class="hazard w-32"></div>
+          <h2 class="h2 stroke" style="text-align:center;color:#fda4af">Te pegaram!</h2>
+          <p class="hint" style="margin-top:.3rem">A colorada te alcançou no fim do segundo tempo</p>
+
+          <div id="record" class="record hidden">🏆 NOVO RECORDE!</div>
+
+          <div class="stats stats4">
+            <div class="stat rose"><b id="oScore">0</b><span>Pontos</span></div>
+            <div class="stat"><b id="oTime">0:00</b><span>Tempo</span></div>
+            <div class="stat amber"><b id="oKills">0</b><span>Carrinhos</span></div>
+            <div class="stat green"><b id="oGraze">0</b><span>Raspões</span></div>
+          </div>
+
+          <div id="saveRow" class="save-row">
+            <input id="nameInput" class="name" maxlength="12" placeholder="Seu nome" autocomplete="off" />
+            <button id="btnSave" class="btn btn-amber" style="width:auto">Salvar</button>
+          </div>
+          <div id="savedMsg" class="saved hidden">Recorde salvo!</div>
+
+          <div class="stack">
+            <button id="btnRestart" class="btn btn-primary big">↻ Fugir de novo</button>
+            <p class="hint" id="overHint">ENTER / R para recomeçar na hora</p>
+            <button id="btnMenu" class="btn btn-ghost">⌂ Menu principal</button>
+          </div>
+
+          <div id="tableOver" class="table"></div>
+        </div>
+      </section>
+
+      <p class="footer">Arena sobrevivência · feita com raiva e carinho</p>
+    </div>
+
+    <script src="./script.js" defer></script>
+  </body>
+</html>
