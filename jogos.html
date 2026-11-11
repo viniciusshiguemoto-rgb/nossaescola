@@ -33,4 +33,15 @@
 </body>
 </html>
  <!-- Seu arquivo JS -->
-  <script src="Script.js"></script>
+  <canvas id="tetris" width="240" height="400"></canvas>
+<canvas id="next" width="100" height="100"></canvas>
+
+<div>Pontuação: <span id="score">0</span></div>
+<div>Linhas: <span id="lines">0</span></div>
+<div>Nível: <span id="level">1</span></div>
+
+<script src="tetris.js"></script>
+<script>
+  const game = new Tetris('tetris', 'next', 'score', 'lines', 'level');
+  game.start();
+</script>
