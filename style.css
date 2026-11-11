@@ -130,9 +130,7 @@ text-decoration: none;
 .container-video {
   text-align: center
 }
-
 #game-container {
-align-items: center;
       width: 800px;
       height: 500px;
       position: relative;
