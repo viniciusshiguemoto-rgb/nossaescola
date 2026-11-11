@@ -132,6 +132,7 @@ text-decoration: none;
 }
 
 #game-container {
+align-items: center;
       width: 800px;
       height: 500px;
       position: relative;
